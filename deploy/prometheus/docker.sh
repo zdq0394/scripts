@@ -13,4 +13,8 @@ fi
 pwd_dir=`pwd`
 config_file="${pwd_dir}/prometheus.yml"
 
-docker run -d --name prometheus -p 9090:9090 -v /$pwd_dir:/prometheus-conf prom/prometheus -config.file=/prometheus-conf/prometheus.yml 
+docker run -d --name prometheus -p 9090:9090 \
+ -v $pwd_dir:/prometheus-conf \
+ prom/prometheus \
+ -config.file=/prometheus-conf/prometheus.yml \
+ -alertmanager.url=http://127.0.0.1:9093

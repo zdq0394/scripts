@@ -15,6 +15,6 @@ config_file="${pwd_dir}/alertmanager.yml"
 
 docker pull quay.io/prometheus/alertmanager
 docker run -d --name alertmanager -p 9093:9093 \
- -v /$pwd_dir:/alertmanager-conf \
+ -v $pwd_dir:/alertmanager-conf \
  quay.io/prometheus/alertmanager \
  -config.file=/alertmanager-conf/alertmanager.yml 
