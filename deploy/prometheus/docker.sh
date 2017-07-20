@@ -10,4 +10,7 @@ if test $os = "Linux" ; then
     echo "1" > /proc/sys/net/ipv4/ip_forward
 fi
 
-docker run -d --name prometheus -p 9090:9090 prom/prometheus
+pwd_dir=`pwd`
+config_file="${pwd_dir}/prometheus.yml"
+
+docker run -d --name prometheus -p 9090:9090 -v /$pwd_dir:/prometheus-conf prom/prometheus -config.file=/prometheus-conf/prometheus.yml 
