@@ -7,3 +7,12 @@ ALERT InstanceDown
     summary = "Instance {{ $labels.instance }} down",
     description = "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.",
   }
+
+ALERT InstanceUp
+  IF up == 1
+  FOR 5m
+  LABELS { severity = "page" }
+  ANNOTATIONS {
+    summary = "Instance {{ $labels.instance }} up",
+    description = "{{ $labels.instance }} of job {{ $labels.job }} has been up for more than 5 minutes.",
+  }
