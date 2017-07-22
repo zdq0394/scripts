@@ -1,3 +1,4 @@
+#! /bin/sh
 os=`uname -s`
 if test $os = "Darwin" ; then
     echo "Darwin"
