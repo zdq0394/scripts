@@ -13,10 +13,10 @@ fi
 pwd_dir=`pwd`
 config_file="${pwd_dir}/prometheus.yml"
 
-alertmanager_url=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' alertmanager`
+alert_manager_ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' alertmanager`
 
 docker run -d --name prometheus -p 9090:9090 \
  -v $pwd_dir:/prometheus-conf \
  prom/prometheus:v1.7.1 \
  -config.file=/prometheus-conf/prometheus.yml \
- -alertmanager.url=http://$alertmanager_url:9093
+ -alertmanager.url=http://$alert_manager_ip:9093
