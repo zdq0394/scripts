@@ -10,8 +10,7 @@ if test $os = "Linux" ; then
     echo "1" > /proc/sys/net/ipv4/ip_forward
 fi
 
-docker run -d --name node-exporter \
-  -p 9100:9100 \
+docker run -d --name node-exporter -p 9100:9100 \
   -v "/proc:/host/proc:ro" \
   -v "/sys:/host/sys:ro" \
   -v "/:/rootfs:ro" \
