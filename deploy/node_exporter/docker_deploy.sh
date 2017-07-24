@@ -15,7 +15,7 @@ docker run -d --name node-exporter -p 9100:9100 \
   -v "/sys:/host/sys:ro" \
   -v "/:/rootfs:ro" \
   --net="host" \
-  quay.io/prometheus/node-exporter:v0.14.0 \
+  prom/node-exporter:v0.14.0 \
     -collector.procfs /host/proc \
     -collector.sysfs /host/sys \
     -collector.filesystem.ignored-mount-points "^/(sys|proc|dev|host|etc)($|/)"

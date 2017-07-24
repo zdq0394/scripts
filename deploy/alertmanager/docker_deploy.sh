@@ -13,8 +13,7 @@ fi
 pwd_dir=`pwd`
 config_file="${pwd_dir}/alertmanager.yml"
 
-docker pull quay.io/prometheus/alertmanager:v0.8.0
 docker run -d --name alertmanager -p 9093:9093 \
  -v $pwd_dir:/alertmanager-conf \
- quay.io/prometheus/alertmanager:v0.8.0 \
+ prom/alertmanager:v0.8.0 \
  -config.file=/alertmanager-conf/alertmanager.yml 
