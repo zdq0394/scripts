@@ -1,5 +1,5 @@
 #!/bin/bash
-# Config etcd nodes
+# Config etcd nodes, 3 nodes
 ETCD_NAME_1=""
 CLUSTER_IP_1=""
 ETCD_NAME_2=""
@@ -7,6 +7,7 @@ CLUSTER_IP_2=""
 ETCD_NAME_3=""
 CLUSTER_IP_3=""
 
+# change this at each node
 ETCD_NAME=$ETCD_NAME_1
 HOST_IP=$CLUSTER_IP_1
 
