@@ -2,7 +2,7 @@
 os=`uname -s`
 
 if test $os != "Linux" ; then
-    echo "Not linux system, can not run node-exporter."
+    echo "$os is not linux system, can not run node-exporter."
     exit 0
 fi
 
