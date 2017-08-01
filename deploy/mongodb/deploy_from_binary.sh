@@ -1,3 +1,4 @@
+#! /bin/sh
 # deploy mongodb from binary
 # prepare mongodb installation packages
 MongoURI="https://fastdl.mongodb.org/linux"
