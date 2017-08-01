@@ -1,6 +1,6 @@
 #! /bin/sh
 # Export the HostIP
-export HostIP="192.168.12.50"
+HostIP="100.100.57.219"
 echo $HostIP
 # Run the docker
 docker run -d -v /usr/share/ca-certificates/:/etc/ssl/certs -p 4001:4001 -p 2380:2380 -p 2379:2379 \
