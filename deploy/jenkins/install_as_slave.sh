@@ -10,8 +10,4 @@ rm -fr $JENKINS_ROOT
 mkdir -p $JENKINS_ROOT
 mkdir -p $JENKINS_HOME
 mkdir -p $JENKINS_NODE
-cd $JENKINS_ROOT
-wget http://updates.jenkins-ci.org/download/war/2.73.3/jenkins.war
-
 export JENKINS_HOME
-nohup java -jar $JENKINS_ROOT/jenkins.war --httpPort=8080 > jenkins.out 2>&1 &
