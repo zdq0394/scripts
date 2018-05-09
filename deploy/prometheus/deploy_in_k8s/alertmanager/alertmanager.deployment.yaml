@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: alertmanager
+  name: alertmanager
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: alertmanager
+  template:
+    metadata:
+      labels:
+        name: alertmanager
+    spec:
+      containers:
+      - image: docker-registry.saicstack.com/prom/alertmanager:v0.8.0
+        name: alertmanager
+        args: ["-config.file=/etc/alertmanager/conf/alertmanager.yml"]
+        ports:
+        - containerPort: 9093
+        volumeMounts:
+        - name: am-config
+          mountPath: /etc/alertmanager/conf
+      volumes:
+        - name: am-config
+          configMap:
+            name: am-config
