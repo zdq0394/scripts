@@ -23,5 +23,12 @@ data:
       disableDeletion: false
       options:
         path: /data/dashboards/k8s-cluster-monitoring/dashboard.json
+    - name: 'docker-host'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: false
+      options:
+        path: /data/dashboards/gfdashboard-docker-host/dashboard.json
 
 

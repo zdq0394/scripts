@@ -35,7 +35,7 @@ data:
             - '10.130.33.14:11070'
             - '10.130.33.15:11070'
             - '10.130.33.16:11070'
-      - job_name: 'node-exporter'
+      - job_name: 'node_exporter'
         static_configs:
           - targets:
             - '10.130.33.8:9100'

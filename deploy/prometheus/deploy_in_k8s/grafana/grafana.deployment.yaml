@@ -48,6 +48,8 @@ spec:
           mountPath: /data/dashboards/k8s-cluster-health
         - name: gfdashboard-k8s-cluster-monitoring
           mountPath: /data/dashboards/k8s-cluster-monitoring
+        - name: gfdashboard-docker-host
+          mountPath: /data/dashboards/gfdashboard-docker-host
       volumes:
         - name: grafana-ds-config
           configMap:
@@ -61,5 +63,8 @@ spec:
         - name: gfdashboard-k8s-cluster-monitoring
           configMap:
             name: gfdashboard-k8s-cluster-monitoring
+        - name: gfdashboard-docker-host
+          configMap:
+            name: gfdashboard-docker-host
         
 
