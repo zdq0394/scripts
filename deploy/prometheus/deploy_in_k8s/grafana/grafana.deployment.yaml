@@ -42,7 +42,24 @@ spec:
         volumeMounts:
         - name: grafana-ds-config
           mountPath: /data/provisioning/datasources
+        - name: grafana-dashboard-config
+          mountPath: /data/provisioning/dashboards
+        - name: gfdashboard-k8s-cluster-health
+          mountPath: /data/dashboards/k8s-cluster-health
+        - name: gfdashboard-k8s-cluster-monitoring
+          mountPath: /data/dashboards/k8s-cluster-monitoring
       volumes:
         - name: grafana-ds-config
           configMap:
             name: grafana-ds-config
+        - name: grafana-dashboard-config
+          configMap:
+            name: grafana-dashboard-config
+        - name: gfdashboard-k8s-cluster-health
+          configMap:
+            name: gfdashboard-k8s-cluster-health
+        - name: gfdashboard-k8s-cluster-monitoring
+          configMap:
+            name: gfdashboard-k8s-cluster-monitoring
+        
+
