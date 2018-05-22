@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alert-target-rule-cm
+  namespace: monitoring
+data:
+  alert.rules: |
+    ALERT PrometheusTargetJobDown
+      IF up != 1
+      FOR 2m
+      LABELS {severity="error"}
+      ANNOTATIONS {
+        summary = " prometheus target job is down",
+        description = "Target job {{$labels.job}} is down: {{ $labels.instance }}"
+      }

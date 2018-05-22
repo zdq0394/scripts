@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alert-apiserver-rule-cm
+  namespace: monitoring
+data:
+  alert.rules: |
+    ALERT K8SAPIServerRequestSlow
+      IF apiserver_request_latencies_summary{resource="pods",verb="GET",quantile="0.99"} > 1000000
+      FOR 3m
+      LABELS { severity = "error" }
+      ANNOTATIONS {
+        summary = "k8s apiserver request latency is high",
+        description = "k8s apiserver request latency is high for 3m, {{ $labels.instance }}, value: {{ $value }}us"
+      }
+
+    ALERT K8SAPIServerRequest500
+      IF rate(apiserver_request_count{code="500"}[1m]) !=0
+      LABELS { severity = "error" }
+      ANNOTATIONS {
+        summary = "k8s apiserver request 500",
+        description = "k8s apiserver {{ $labels.resource}}, {{ $labels.resource }} {{ $labels.verb }} 500 num = {{ $value }} > 0 in 1m"
+      }

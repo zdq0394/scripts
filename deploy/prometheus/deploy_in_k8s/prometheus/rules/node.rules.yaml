@@ -1,0 +1,244 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alert-node-rule-cm
+  namespace: monitoring
+data:
+  alert.rules: |
+    ALERT NodeLoadHigh
+      IF ((node_load5 / count without (cpu, mode) (node_cpu{mode="system"})) > 20)
+      FOR 5m
+      LABELS {
+        severity="error"
+      }
+      ANNOTATIONS {
+        summary = "Node high LA detected",
+        description = "{{$labels.instance}}: LA is gt 20 for 5m, value: {{ $value }}"
+      }
+
+    ALERT NodeLoadHigh
+      IF ((node_load5 / count without (cpu, mode) (node_cpu{mode="system"})) > 5)
+      FOR 5m
+      LABELS {
+        severity="warning"
+      }
+      ANNOTATIONS {
+        summary = "Node high LA detected",
+        description = "{{$labels.instance}}: LA is gt 5 for 5m, value: {{ $value }}"
+      }
+
+
+    ALERT NodeRootFSUsageHigh
+      IF ((node_filesystem_size{mountpoint="/root-disk"} - node_filesystem_free{mountpoint="/root-disk"} ) / node_filesystem_size{mountpoint="/root-disk"} * 100) > 90
+      FOR 2m
+      LABELS {
+        severity="error"
+      }
+      ANNOTATIONS {
+        summary = "Node root fs disk usage high",
+        description = "Node {{$labels.instance}} root fs disk usage is above 90%, current value is: {{ $value }}"
+      }
+
+    ALERT NodeRootFSUsageHigh
+      IF ((node_filesystem_size{mountpoint="/root-disk"} - node_filesystem_free{mountpoint="/root-disk"} ) / node_filesystem_size{mountpoint="/root-disk"} * 100) > 75
+      FOR 2m
+      LABELS {
+        severity="warning"
+      }
+      ANNOTATIONS {
+        summary = "Node root fs disk usage high",
+        description = "Node {{$labels.instance}} root fs disk usage is above 75%, current value is: {{ $value }}"
+      }
+
+
+    ALERT NodeDataFSUsageHigh
+      IF ((node_filesystem_size{mountpoint="/data-disk"} - node_filesystem_free{mountpoint="/data-disk"} ) / node_filesystem_size{mountpoint="/data-disk"} * 100) > 90
+      FOR 2m
+      LABELS {
+        severity="error"
+      }
+      ANNOTATIONS {
+        summary = "Node data fs disk usage high",
+        description = "Node {{$labels.instance}} data fs disk usage is above 90%, current value is: {{ $value }}"
+      }
+
+    ALERT NodeDataFSUsageHigh
+      IF ((node_filesystem_size{mountpoint="/data-disk"} - node_filesystem_free{mountpoint="/data-disk"} ) / node_filesystem_size{mountpoint="/data-disk"} * 100) > 75
+      FOR 2m
+      LABELS {
+        severity="warning"
+      }
+      ANNOTATIONS {
+        summary = "Node data fs disk usage high",
+        description = "Node {{$labels.instance}} data fs disk usage is above 75%, current value is: {{ $value }}"
+      }
+
+
+    ALERT NodeIOStatHigh
+      IF (irate(node_disk_io_time_ms{instance=~"$node"}[5m])/10) > 90
+      FOR 10m
+      LABELS {
+        severity="error"
+      }
+      ANNOTATIONS {
+        summary = "Node io stat high",
+        description = "Node {{$labels.instance}} device {{$labels.device}} io util is above 90% for 10m, current value is: {{ $value }})"
+      }
+
+
+    ALERT NodeIOStatHigh
+      IF (irate(node_disk_io_time_ms{instance=~"$node"}[5m])/10) > 90
+      FOR 3m
+      LABELS {
+        severity="warning"
+      }
+      ANNOTATIONS {
+        summary = "Node io stat high",
+        description = "Node {{$labels.instance}} device {{$labels.device}} io util is above 90% for 3m, current value is: {{ $value }})"
+      }
+
+
+    ALERT NodeMemUsageHigh
+      IF (((node_memory_MemTotal-node_memory_MemFree-node_memory_Cached)/(node_memory_MemTotal)*100)) > 95
+      FOR 3m
+      LABELS {
+        severity="error"
+      }
+      ANNOTATIONS {
+        summary = "Node high memory usage detected",
+        description = "Node {{$labels.instance}} memory usage is above 95%, current value is: {{ $value }}"
+      }
+
+    ALERT NodeMemUsageHigh
+      IF (((node_memory_MemTotal-node_memory_MemFree-node_memory_Cached)/(node_memory_MemTotal)*100)) > 90
+      FOR 3m
+      LABELS {
+        severity="warning"
+      }
+      ANNOTATIONS {
+        summary = "Node high memory usage detected",
+        description = "Node {{$labels.instance}} memory usage is above 90%, current value is: {{ $value }}"
+      }
+
+    ALERT NodeCPUUsageHigh
+      IF (100 - (avg by (instance) (irate(node_cpu{name="node-exporter",mode="idle"}[5m])) * 100)) > 90
+      FOR 10m
+      LABELS {
+        severity="error"
+      }
+      ANNOTATIONS {
+        summary = "Node high CPU usage detected",
+        description = "Node {{$labels.instance}}: CPU usage is above 95% for 10m, current value is: {{ $value }}"
+      }
+
+    ALERT NodeCPUUsageHigh
+      IF (100 - (avg by (instance) (irate(node_cpu{name="node-exporter",mode="idle"}[5m])) * 100)) > 85
+      FOR 3m
+      LABELS {
+        severity="warning"
+      }
+      ANNOTATIONS {
+        summary = "{{$labels.instance}}: High CPU usage detected",
+        description = "Node {{$labels.instance}}: CPU usage is above 90% for 3m, current value is: {{ $value }}"
+      }
+
+
+    ALERT NodeNetworkTXBytesHigh
+      IF (irate(node_network_transmit_bytes{device=~"ens\\d+|bond\\d+"}[1m]) / (2000*1024*1024/8) * 100) > 90
+      FOR 3m
+      LABELS {
+        severity="error"
+      }
+      ANNOTATIONS {
+        summary = "Node network transmit bytes high",
+        description = "Node {{$labels.instance}} transmit bytes gt 90% for 3m, current value is {{ $value }}"
+      }
+
+    ALERT NodeNetworkTXBytesHigh
+      IF (irate(node_network_transmit_bytes{device=~"ens\\d+|bond\\d+"}[1m]) / (2000*1024*1024/8) * 100) > 75
+      FOR 3m
+      LABELS {
+        severity="warning"
+      }
+      ANNOTATIONS {
+        summary = "Node network transmit bytes high",
+        description = "Node {{$labels.instance}} transmit bytes gt 75% for 3m, current value is {{ $value }}"
+      }
+
+
+    ALERT NodeNetworkRXBytesHigh
+      IF (irate(node_network_transmit_bytes{device=~"ens\\d+|bond\\d+"}[1m]) / (2000*1024*1024/8) * 100) > 90
+      FOR 3m
+      LABELS {
+        severity="error"
+      }
+      ANNOTATIONS {
+        summary = "Node network receive bytes high",
+        description = "Node {{$labels.instance}} receive bytes gt 90% for 3m, current value is {{ $value }}"
+      }
+
+    ALERT NodeNetworkRXBytesHigh
+      IF (irate(node_network_transmit_bytes{device=~"ens\\d+|bond\\d+"}[1m]) / (2000*1024*1024/8) * 100) > 75
+      FOR 3m
+      LABELS {
+        severity="warning"
+      }
+      ANNOTATIONS {
+        summary = "Node network receive bytes high",
+        description = "Node {{$labels.instance}} receive bytes gt 75% for 3m, current value is {{ $value }}"
+      }
+
+    ALERT NodeNetworkTXError
+      IF irate(node_network_transmit_errs{device=~"ens\\d+|bond\\d+"}[1m]) > 0
+      FOR 3m
+      LABELS {
+        severity="error"
+      }
+      ANNOTATIONS {
+        summary = "Node network transmit error",
+        description = "Node {{$labels.instance}} transmit errors per minute > 0 for 3m, current value is {{ $value }}"
+      }
+
+    ALERT NodeNetworkRXError
+      IF irate(node_network_receive_errs{device=~"ens\\d+|bond\\d+"}[1m]) > 0
+      FOR 3m
+      LABELS {
+        severity="error"
+      }
+      ANNOTATIONS {
+        summary = "Node network receive error",
+        description = "Node {{$labels.instance}} receive errors per minute > 0 for 3m, current value is {{ $value }}"
+      }
+
+    ALERT NodeConntrackUsageHigh
+      IF ((nf_conntrack_entries / nf_conntrack_entries_limit) * 100) > 50
+      FOR 2m
+      LABELS {
+        severity="notice"
+      }
+      ANNOTATIONS {
+        summary = "conntrack entry usage above 50%",
+        description = "{{$labels.node}} used 50% of conntrack entries, value: {{ $value }}"
+      }
+
+    ALERT NodeConntrackUsageHigh
+      IF ((nf_conntrack_entries / nf_conntrack_entries_limit) * 100) > 75
+      FOR 2m
+      LABELS {
+        severity="warning"
+      }
+      ANNOTATIONS {
+        summary = "conntrack entry usage above 75%",
+        description = "{{$labels.node}} used 75% of conntrack entries, value: {{ $value }}"
+      }
+
+    ALERT NodeConntrackUsageHigh
+      IF ((nf_conntrack_entries / nf_conntrack_entries_limit) * 100) > 90
+      FOR 2m
+      LABELS {
+        severity="error"
+      }
+      ANNOTATIONS {
+        summary = "conntrack entry usage above 90%",
+        description = "{{$labels.node}} used 90% of conntrack entries, value: {{ $value }}"
+      }

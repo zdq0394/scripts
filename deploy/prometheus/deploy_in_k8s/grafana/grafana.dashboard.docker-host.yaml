@@ -129,7 +129,7 @@ data:
           "tableColumn": "",
           "targets": [
             {
-              "expr": "sum by(job, instance)(node_load1{job=\"node_exporter\", instance=~\"$node:.*\"}) / count by(job, instance)(count by(job, instance, cpu)(node_cpu{job=\"node_exporter\", instance=~\"$node:.*\"}))",
+              "expr": "sum by(name, instance)(node_load1{name=\"node-exporter\", instance=~\"$node:.*\"}) / count by(name, instance)(count by(name, instance, cpu)(node_cpu{name=\"node-exporter\", instance=~\"$node:.*\"}))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
@@ -212,7 +212,7 @@ data:
           "tableColumn": "",
           "targets": [
             {
-              "expr": "up{job=\"node_exporter\", instance=~\"$node:.*\"}",
+              "expr": "up{name=\"node-exporter\", instance=~\"$node:.*\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "",
@@ -301,7 +301,7 @@ data:
           "tableColumn": "",
           "targets": [
             {
-              "expr": "count(count by(cpu)(node_cpu{job=\"node_exporter\", instance=~\"$node:.*\"}))",
+              "expr": "count(count by(cpu)(node_cpu{name=\"node-exporter\", instance=~\"$node:.*\"}))",
               "format": "time_series",
               "intervalFactor": 10,
               "legendFormat": "",
@@ -387,7 +387,7 @@ data:
           "tableColumn": "",
           "targets": [
             {
-              "expr": "node_memory_MemTotal{job=\"node_exporter\", instance=~\"$node:.*\"}",
+              "expr": "node_memory_MemTotal{name=\"node-exporter\", instance=~\"$node:.*\"}",
               "format": "time_series",
               "intervalFactor": 10,
               "metric": "",
@@ -472,7 +472,7 @@ data:
           "tableColumn": "",
           "targets": [
             {
-              "expr": "sum(node_filesystem_size{job=\"node_exporter\", instance=~\"$node:.*\", device=~\"/dev/.*\", mountpoint!=\"/var/lib/docker/aufs\"})",
+              "expr": "sum(node_filesystem_size{name=\"node-exporter\", instance=~\"$node:.*\", device=~\"/dev/.*\", mountpoint!=\"/var/lib/docker/aufs\"})",
               "format": "time_series",
               "intervalFactor": 10,
               "legendFormat": "",
@@ -558,7 +558,7 @@ data:
           "tableColumn": "",
           "targets": [
             {
-              "expr": "time() - node_boot_time{job=\"node_exporter\", instance=~\"$node:.*\"}",
+              "expr": "time() - node_boot_time{name=\"node-exporter\", instance=~\"$node:.*\"}",
               "format": "time_series",
               "intervalFactor": 10,
               "legendFormat": "",
@@ -622,7 +622,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by(mode)(irate(node_cpu{job=\"node_exporter\", instance=~\"$node:.*\", mode!=\"idle\"}[5m])) > 0",
+              "expr": "sum by(mode)(irate(node_cpu{name=\"node-exporter\", instance=~\"$node:.*\", mode!=\"idle\"}[5m])) > 0",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -709,7 +709,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_load1{job=\"node_exporter\", instance=~\"$node:.*\"}[5m])",
+              "expr": "irate(node_load1{name=\"node-exporter\", instance=~\"$node:.*\"}[5m])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -720,14 +720,14 @@ data:
               "step": 10
             },
             {
-              "expr": "irate(node_load5{job=\"node_exporter\", instance=~\"$node:.*\"}[5m])",
+              "expr": "irate(node_load5{name=\"node-exporter\", instance=~\"$node:.*\"}[5m])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Load 5m",
               "refId": "B"
             },
             {
-              "expr": "irate(node_load15{job=\"node_exporter\", instance=~\"$node:.*\"}[5m])",
+              "expr": "irate(node_load15{name=\"node-exporter\", instance=~\"$node:.*\"}[5m])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Load 15m",
@@ -825,7 +825,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "node_memory_Buffers{job=\"node_exporter\", instance=~\"$node:.*\"}",
+              "expr": "node_memory_Buffers{name=\"node-exporter\", instance=~\"$node:.*\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -834,7 +834,7 @@ data:
               "step": 10
             },
             {
-              "expr": "node_memory_Cached{job=\"node_exporter\", instance=~\"$node:.*\"}",
+              "expr": "node_memory_Cached{name=\"node-exporter\", instance=~\"$node:.*\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -843,7 +843,7 @@ data:
               "step": 10
             },
             {
-              "expr": "node_memory_MemFree{job=\"node_exporter\", instance=~\"$node:.*\"}",
+              "expr": "node_memory_MemFree{name=\"node-exporter\", instance=~\"$node:.*\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -852,7 +852,7 @@ data:
               "step": 10
             },
             {
-              "expr": "node_memory_MemTotal{job=\"node_exporter\", instance=~\"$node:.*\"} - node_memory_MemFree{job=\"node_exporter\", instance=~\"$node:.*\"} - node_memory_Cached{job=\"node_exporter\", instance=~\"$node:.*\"} - node_memory_Buffers{job=\"node_exporter\", instance=~\"$node:.*\"}",
+              "expr": "node_memory_MemTotal{name=\"node-exporter\", instance=~\"$node:.*\"} - node_memory_MemFree{name=\"node-exporter\", instance=~\"$node:.*\"} - node_memory_Cached{name=\"node-exporter\", instance=~\"$node:.*\"} - node_memory_Buffers{name=\"node-exporter\", instance=~\"$node:.*\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -950,7 +950,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_transmit_bytes{job=\"node_exporter\", instance=~\"$node:.*\", device!~\"lo|bond[0-9]|cbr[0-9]|veth.*|cali.*|docker.*|tunl.*\"}[5m]) > 0",
+              "expr": "irate(node_network_transmit_bytes{name=\"node-exporter\", instance=~\"$node:.*\", device!~\"lo|bond[0-9]|cbr[0-9]|veth.*|cali.*|docker.*|tunl.*\"}[5m]) > 0",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -961,7 +961,7 @@ data:
               "step": 10
             },
             {
-              "expr": "irate(node_network_receive_bytes{job=\"node_exporter\", instance=~\"$node:.*\", device!~\"lo|bond[0-9]|cbr[0-9]|veth.*|cali.*|docker.*|tunl.*\"}[5m]) > 0",
+              "expr": "irate(node_network_receive_bytes{name=\"node-exporter\", instance=~\"$node:.*\", device!~\"lo|bond[0-9]|cbr[0-9]|veth.*|cali.*|docker.*|tunl.*\"}[5m]) > 0",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -1051,7 +1051,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_io_time_ms{job=\"node_exporter\", instance=~\"$node:.*\", device!~\"sr.*\"}[5m]) / 1000",
+              "expr": "irate(node_disk_io_time_ms{name=\"node-exporter\", instance=~\"$node:.*\", device!~\"sr.*\"}[5m]) / 1000",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -1144,7 +1144,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(node_context_switches{job=\"node_exporter\", instance=~\"$node:.*\"}[$interval]) or irate(node_context_switches{job=\"node_exporter\", instance=~\"$node:.*\"}[5m])",
+              "expr": "rate(node_context_switches{name=\"node-exporter\", instance=~\"$node:.*\"}[$interval]) or irate(node_context_switches{name=\"node-exporter\", instance=~\"$node:.*\"}[5m])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -1243,7 +1243,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(node_intr{job=\"node_exporter\", instance=~\"$node:.*\"}[$interval]) or irate(node_intr{job=\"node_exporter\", instance=~\"$node:.*\"}[5m])",
+              "expr": "rate(node_intr{name=\"node-exporter\", instance=~\"$node:.*\"}[$interval]) or irate(node_intr{name=\"node-exporter\", instance=~\"$node:.*\"}[5m])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -1337,7 +1337,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(node_vmstat_pgpgin{job=\"node_exporter\", instance=~\"$node:.*\"}[$interval]) * 1024 or irate(node_vmstat_pgpgin{job=\"node_exporter\", instance=~\"$node:.*\"}[5m]) * 1024",
+              "expr": "rate(node_vmstat_pgpgin{name=\"node-exporter\", instance=~\"$node:.*\"}[$interval]) * 1024 or irate(node_vmstat_pgpgin{name=\"node-exporter\", instance=~\"$node:.*\"}[5m]) * 1024",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -1348,7 +1348,7 @@ data:
               "step": 4
             },
             {
-              "expr": "rate(node_vmstat_pgpgout{job=\"node_exporter\", instance=~\"$node:.*\"}[$interval]) * 1024 or irate(node_vmstat_pgpgout{job=\"node_exporter\", instance=~\"$node:.*\"}[5m]) * 1024",
+              "expr": "rate(node_vmstat_pgpgout{name=\"node-exporter\", instance=~\"$node:.*\"}[$interval]) * 1024 or irate(node_vmstat_pgpgout{name=\"node-exporter\", instance=~\"$node:.*\"}[5m]) * 1024",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -1450,7 +1450,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "node_filesystem_size{job=\"node_exporter\", instance=~\"$node:.*\", device=~\"/dev/.*\", mountpoint=\"$filesystem_mountpoint\"} - node_filesystem_free{job=\"node_exporter\", instance=~\"$node:.*\", device=~\"/dev/.*\", mountpoint=\"$filesystem_mountpoint\"}",
+              "expr": "node_filesystem_size{name=\"node-exporter\", instance=~\"$node:.*\", device=~\"/dev/.*\", mountpoint=\"$filesystem_mountpoint\"} - node_filesystem_free{name=\"node-exporter\", instance=~\"$node:.*\", device=~\"/dev/.*\", mountpoint=\"$filesystem_mountpoint\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -1460,7 +1460,7 @@ data:
               "step": 4
             },
             {
-              "expr": "node_filesystem_free{job=\"node_exporter\", instance=~\"$node:.*\", device=~\"/dev/.*\", mountpoint=\"$filesystem_mountpoint\"}",
+              "expr": "node_filesystem_free{name=\"node-exporter\", instance=~\"$node:.*\", device=~\"/dev/.*\", mountpoint=\"$filesystem_mountpoint\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -1511,7 +1511,7 @@ data:
       "style": "dark",
       "tags": [
         "prometheus",
-        "node_exporter"
+        "node-exporter"
       ],
       "templating": {
         "list": [
@@ -1585,7 +1585,7 @@ data:
             "multiFormat": "pipe",
             "name": "environment",
             "options": [],
-            "query": "label_values(node_load1{job=\"node_exporter\"}, env)",
+            "query": "label_values(node_load1{name=\"node-exporter\"}, env)",
             "refresh": 1,
             "regex": "",
             "sort": 1,
@@ -1608,7 +1608,7 @@ data:
             "multiFormat": "pipe",
             "name": "app",
             "options": [],
-            "query": "label_values(node_load1{job=\"node_exporter\",env=~\"$environment\"}, app)",
+            "query": "label_values(node_load1{name=\"node-exporter\",env=~\"$environment\"}, app)",
             "refresh": 1,
             "regex": "",
             "sort": 1,
@@ -1631,7 +1631,7 @@ data:
             "multiFormat": "pipe",
             "name": "node",
             "options": [],
-            "query": "label_values(node_load1{job=\"node_exporter\",env=~\"$environment\",app=~\"$app\"}, instance)",
+            "query": "label_values(node_load1{name=\"node-exporter\",env=~\"$environment\",app=~\"$app\"}, instance)",
             "refresh": 1,
             "regex": "/([^:]+):.*/",
             "sort": 1,
@@ -1654,7 +1654,7 @@ data:
             "multiFormat": "glob",
             "name": "filesystem_mountpoint",
             "options": [],
-            "query": "query_result(node_filesystem_size{job=\"node_exporter\", instance=~\"$node:.*\", device=~\"/dev/.*\", mountpoint!~\".*docker.*\"})",
+            "query": "query_result(node_filesystem_size{name=\"node-exporter\", instance=~\"$node:.*\", device=~\"/dev/.*\", mountpoint!~\".*docker.*\"})",
             "refresh": 1,
             "regex": "/mountpoint=\"([^\"]+)/",
             "sort": 0,

@@ -16,7 +16,7 @@ spec:
         name: node-exporter
     spec:
       containers:
-      - image: docker-registry.saicstack.com/prom/node-exporter:v0.14.0
+      - image: node-exporter:v0.14.0
         args:
         - "-collector.procfs=/host/proc"
         - "-collector.sysfs=/host/sys"

@@ -16,9 +16,11 @@ spec:
       labels:
         name: grafana
     spec:
+      nodeSelector:
+        monitor: "true"
       containers:
       - name: grafana
-        image: docker-registry.saicstack.com/kubernetes/grafana:5.1.1
+        image: grafana:5.1.1
         ports:
         - containerPort: 3000
           protocol: TCP

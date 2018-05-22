@@ -16,8 +16,10 @@ spec:
       labels:
         name: prometheus
     spec:
+      nodeSelector:
+        monitor: "true"
       containers:
-      - image: docker-registry.saicstack.com/prom/prometheus:v1.7.1
+      - image: prometheus:v1.7.1
         name: prometheus
         args: ["-alertmanager.url=http://alertmanager:9093", "-config.file=/etc/prometheus/prometheus.yml"]
         ports:
@@ -25,12 +27,27 @@ spec:
         volumeMounts:
         - name: prometheus-config
           mountPath: /etc/prometheus
-        - name: alert-rule-config
-          mountPath: /etc/rules
+        - name: alert-target-rule-cm
+          mountPath: /etc/alert/rules/target
+        - name: alert-etcd-rule-cm
+          mountPath: /etc/alert/rules/etcd
+        - name: alert-node-rule-cm
+          mountPath: /etc/alert/rules/node
+        - name: alert-apiserver-rule-cm
+          mountPath: /etc/alert/rules/apiserver
       volumes:
         - name: prometheus-config
           configMap:
             name: prom-config
-        - name: alert-rule-config
+        - name: alert-target-rule-cm
           configMap:
-            name: alert-rule-config
+            name: alert-target-rule-cm
+        - name: alert-etcd-rule-cm
+          configMap:
+            name: alert-etcd-rule-cm
+        - name: alert-node-rule-cm
+          configMap:
+            name: alert-node-rule-cm
+        - name: alert-apiserver-rule-cm
+          configMap:
+            name: alert-apiserver-rule-cm
