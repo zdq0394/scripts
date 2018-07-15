@@ -16,8 +16,10 @@ spec:
       labels:
         name: alertmanager
     spec:
+      nodeSelector:
+        monitor: "true"
       containers:
-      - image: docker-registry.saicstack.com/prom/alertmanager:v0.8.0
+      - image: alertmanager:v0.8.0
         name: alertmanager
         args: ["-config.file=/etc/alertmanager/conf/alertmanager.yml"]
         ports:

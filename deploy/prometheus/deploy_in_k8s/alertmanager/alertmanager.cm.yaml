@@ -6,21 +6,34 @@ metadata:
 data:
   alertmanager.yml: |
       global:
-        smtp_smarthost: 'smtp.163.com:25'
-        smtp_from: 'zdq123.hn@163.com'
-        smtp_auth_username: 'zdq123.hn@163.com'
-        smtp_auth_password: '********'
+        smtp_smarthost: 'mail.163.com:25'
+        smtp_from: 'hello@163.com'
+        smtp_auth_username: 'hello@163.com'
+        smtp_auth_password: 'hello pass'
         resolve_timeout: 1m
         smtp_require_tls: false
 
       route:
+        receiver: 'team-k8s-mails'
         group_by: ['alertname']
         group_wait: 5s
         group_interval: 10s
-        repeat_interval: 1h 
-        receiver: team-X-mails
+        repeat_interval: 1h
+
+        routes:
+        - receiver: 'team-k8s-mails'
+          continue: true
+        
+        - receiver: 'team-k8s-sms'
+          continue: true
+        
 
       receivers:
-      - name: 'team-X-mails'
+      - name: 'team-k8s-mails'
         email_configs:
-        - to: 'zhangdongqi@qiniu.com'
+        - to: 'hello@test.com'
+
+      - name: 'team-k8s-sms'
+        webhook_configs:
+        - url: 'http://smshook:8090/alerts'
+          send_resolved: true
