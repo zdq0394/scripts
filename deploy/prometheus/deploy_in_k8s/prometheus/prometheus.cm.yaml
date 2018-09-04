@@ -9,7 +9,7 @@ data:
       scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
       evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
       external_labels:
-          monitor: 'saic-k8s'
+          monitor: 'k8s'
     rule_files:
       # - "first.rules"
       # - "second.rules"
@@ -26,9 +26,9 @@ data:
       - job_name: 'etcd'
         static_configs:
           - targets:
-            - '10.130.33.14:2379'
-            - '10.130.33.15:2379'
-            - '10.130.33.16:2379'
+            - '10.10.10.14:2379'
+            - '10.10.10.15:2379'
+            - '10.10.10.16:2379'
 
       - job_name: 'kubernetes-apiservers'
         kubernetes_sd_configs:
