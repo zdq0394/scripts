@@ -16,7 +16,7 @@ data:
     sentinel auth-pass mymaster replace-default-auth
 
   init.sh: |
-    MASTER=
+    MASTER=`redis-cli -h redis-ha -p 26379 sentinel get-master-addr-by-name mymaster | grep -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'`
     REDIS_CONF=/data/conf/redis.conf
     SENTINEL_CONF=/data/conf/sentinel.conf
     
