@@ -1,10 +1,15 @@
 #! /bin/bash
-REDIS0_IP=`dig +short redis-app-0.redis-service.redis.svc.k8s.$CLUSTER_DOMAIN`
-REDIS1_IP=`dig +short redis-app-1.redis-service.redis.svc.k8s.$CLUSTER_DOMAIN`
-REDIS2_IP=`dig +short redis-app-2.redis-service.redis.svc.k8s.$CLUSTER_DOMAIN`
-REDIS3_IP=`dig +short redis-app-3.redis-service.redis.svc.k8s.$CLUSTER_DOMAIN`
-REDIS4_IP=`dig +short redis-app-4.redis-service.redis.svc.k8s.$CLUSTER_DOMAIN`
-REDIS5_IP=`dig +short redis-app-5.redis-service.redis.svc.k8s.$CLUSTER_DOMAIN`
+# ENV:
+##  CLUSTER_DOMAIN
+##  NAMESPACE
+##  HEADLESS_SERVICE_NAME
+##  STATEFULSET_NAME
+REDIS0_IP=`dig +short $STATEFULSET_NAME-0.$HEADLESS_SERVICE_NAME.$NAMESPACE.svc.k8s.$CLUSTER_DOMAIN`
+REDIS1_IP=`dig +short $STATEFULSET_NAME-1.$HEADLESS_SERVICE_NAME.$NAMESPACE.svc.k8s.$CLUSTER_DOMAIN`
+REDIS2_IP=`dig +short $STATEFULSET_NAME-2.$HEADLESS_SERVICE_NAME.$NAMESPACE.svc.k8s.$CLUSTER_DOMAIN`
+REDIS3_IP=`dig +short $STATEFULSET_NAME-3.$HEADLESS_SERVICE_NAME.$NAMESPACE.svc.k8s.$CLUSTER_DOMAIN`
+REDIS4_IP=`dig +short $STATEFULSET_NAME-4.$HEADLESS_SERVICE_NAME.$NAMESPACE.svc.k8s.$CLUSTER_DOMAIN`
+REDIS5_IP=`dig +short $STATEFULSET_NAME-5.$HEADLESS_SERVICE_NAME.$NAMESPACE.svc.k8s.$CLUSTER_DOMAIN`
 
 redis-cli -h $REDIS0_IP cluster meet $REDIS1_IP 6379
 redis-cli -h $REDIS0_IP cluster meet $REDIS2_IP 6379
