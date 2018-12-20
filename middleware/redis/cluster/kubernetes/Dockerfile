@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:latest
 RUN apt-get update \
     && apt-get install -y vim wget python2.7 python-pip redis-tools dnsutils
 RUN pip install redis-trib
