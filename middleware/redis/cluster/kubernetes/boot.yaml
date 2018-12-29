@@ -6,7 +6,7 @@ metadata:
   namespace: redis
 spec:
   containers:
-  - image: registry.docker-cn.com/zdq0394/redis-cluster-boot:1.0
+  - image: zdq0394/redis-cluster-boot:1.2
     name: redis-boot
     env:
       - name: CLUSTER_DOMAIN
