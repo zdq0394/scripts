@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consul-conf
+  namespace: dq
+data:
+  consul.json: |
+    {
+        "bootstrap_expect": 3,
+        "client_addr": "0.0.0.0",
+        "datacenter": "CN-East",
+        "data_dir": "/var/consul",
+        "domain": "consul",
+        "enable_script_checks": true,
+        "dns_config": {
+            "enable_truncate": true,
+            "only_passing": true
+        },
+        "enable_syslog": false,
+        "leave_on_terminate": true,
+        "log_level": "INFO",
+        "rejoin_after_leave": true,
+        "server": true,
+        "start_join": [
+            "myconsul-0.myconsul.dq.svc.k8s.cluster.local",
+            "myconsul-0.myconsul.dq.svc.k8s.cluster.local",
+            "myconsul-0.myconsul.dq.svc.k8s.cluster.local"
+        ],
+        "ui": true
+    }

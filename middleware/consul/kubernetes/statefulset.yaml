@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: myconsul
+  namespace: dq
+spec:
+  serviceName: myconsul
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myconsul
+      appCluster: myconsul
+  template:
+    metadata:
+      labels:
+        app: myconsul
+        appCluster: myconsul
+    spec:
+      terminationGracePeriodSeconds: 20
+      containers:
+      - name: consul
+        image: "consul:1.4.0"
+        # command:
+        #   - "consul"
+        args:
+          - "agent"
+          - "-config-dir=/etc/consul.d"
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "2000Mi"
+        ports:
+            - name: consul
+              containerPort: 8500
+              protocol: "TCP"
+        volumeMounts:
+          - name: "consul-conf"
+            mountPath: "/etc/consul.d"
+          - name: "consul-data"
+            mountPath: "/var/consul"
+      volumes:
+      - name: "consul-conf"
+        configMap:
+          name: "consul-conf"
+  volumeClaimTemplates:
+  - metadata:
+      name: consul-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+      storageClassName: px-hdd-ha3
