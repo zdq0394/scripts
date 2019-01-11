@@ -24,8 +24,8 @@ data:
         "server": true,
         "start_join": [
             "myconsul-0.myconsul.dq.svc.k8s.cluster.local",
-            "myconsul-0.myconsul.dq.svc.k8s.cluster.local",
-            "myconsul-0.myconsul.dq.svc.k8s.cluster.local"
+            "myconsul-1.myconsul.dq.svc.k8s.cluster.local",
+            "myconsul-2.myconsul.dq.svc.k8s.cluster.local"
         ],
         "ui": true
     }
