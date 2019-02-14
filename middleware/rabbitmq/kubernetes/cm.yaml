@@ -16,7 +16,7 @@ data:
       cluster_partition_handling = autoheal
       queue_master_locator=min-masters
       loopback_users.guest = false
-​
+      
       cluster_formation.randomized_startup_delay_range.min = 0
       cluster_formation.randomized_startup_delay_range.max = 2
 
