@@ -1,0 +1,101 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rabbitmq
+  namespace: rabbitmq
+spec:
+  serviceName: rabbitmq-headless
+  selector:
+    matchLabels:
+      app: rabbitmq
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+      # annotations:
+      #   scheduler.alpha.kubernetes.io/affinity: >
+      #       {
+      #         "podAntiAffinity": {
+      #           "requiredDuringSchedulingIgnoredDuringExecution": [{
+      #             "labelSelector": {
+      #               "matchExpressions": [{
+      #                 "key": "app",
+      #                 "operator": "In",
+      #                 "values": ["rabbitmq"]
+      #               }]
+      #             },
+      #             "topologyKey": "kubernetes.io/hostname"
+      #           }]
+      #         }
+      #       }
+    spec:
+      serviceAccountName: rabbitmq
+      terminationGracePeriodSeconds: 10
+      containers:        
+      - name: rabbitmq
+        image: rabbitmq:3.7
+        resources:
+          limits:
+            cpu: 0.5
+            memory: 2Gi
+          requests:
+            cpu: 0.3
+            memory: 2Gi
+        volumeMounts:
+          - name: config-volume
+            mountPath: /etc/rabbitmq
+          - name: rabbitmq-data
+            mountPath: /var/lib/rabbitmq/mnesia
+        ports:
+          - name: http
+            protocol: TCP
+            containerPort: 15672
+          - name: amqp
+            protocol: TCP
+            containerPort: 5672
+        livenessProbe:
+          exec:
+            command: ["rabbitmqctl", "status"]
+          initialDelaySeconds: 60
+          periodSeconds: 60
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            command: ["rabbitmqctl", "status"]
+          initialDelaySeconds: 20
+          periodSeconds: 60
+          timeoutSeconds: 5
+        imagePullPolicy: Always
+        env:
+          - name: HOSTNAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: RABBITMQ_USE_LONGNAME
+            value: "true"
+          - name: RABBITMQ_NODENAME
+            value: "rabbit@$(HOSTNAME).rabbitmq-headless.rabbitmq.svc.cluster.local"
+          # - name: K8S_SERVICE_NAME
+          #   value: "rabbitmq-headless"
+          - name: RABBITMQ_ERLANG_COOKIE
+            value: "mycookie" 
+      volumes:
+        - name: config-volume
+          configMap:
+            name: rabbitmq-config
+            items:
+            - key: rabbitmq.conf
+              path: rabbitmq.conf
+            - key: enabled_plugins
+              path: enabled_plugins
+  volumeClaimTemplates:
+  - metadata:
+      name: rabbitmq-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Gi
+      storageClassName: px-hdd-ha3  

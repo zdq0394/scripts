@@ -1,0 +1,36 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: rabbitmq-headless
+  namespace: rabbitmq
+spec:
+  clusterIP: None
+  publishNotReadyAddresses: true 
+  ports: 
+   - name: amqp
+     port: 5672
+   - name: http
+     port: 15672
+  selector:
+    app: rabbitmq
+---
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: rabbitmq
+  name: rabbitmq-service
+spec:
+  type: NodePort
+  ports:
+   - name: http
+     protocol: TCP
+     port: 15672
+     targetPort: 15672 
+     nodePort: 25672
+   - name: amqp
+     protocol: TCP
+     port: 5672
+     targetPort: 5672
+  selector:
+    app: rabbitmq
