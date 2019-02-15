@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rabbitmq-perf-test
+  namespace: rabbitmq
+spec:
+  containers:
+  - image: zdq0394/rabbitmq-perf-test:latest
+    name: rabbitmq-perf-test
+    command:
+      - "/bin/sh"
+    args:
+      - "-c"
+      - "sleep 360000"
+  restartPolicy: "Never"
