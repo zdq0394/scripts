@@ -14,22 +14,6 @@ spec:
     metadata:
       labels:
         app: rabbitmq
-      # annotations:
-      #   scheduler.alpha.kubernetes.io/affinity: >
-      #       {
-      #         "podAntiAffinity": {
-      #           "requiredDuringSchedulingIgnoredDuringExecution": [{
-      #             "labelSelector": {
-      #               "matchExpressions": [{
-      #                 "key": "app",
-      #                 "operator": "In",
-      #                 "values": ["rabbitmq"]
-      #               }]
-      #             },
-      #             "topologyKey": "kubernetes.io/hostname"
-      #           }]
-      #         }
-      #       }
     spec:
       serviceAccountName: rabbitmq
       terminationGracePeriodSeconds: 10
