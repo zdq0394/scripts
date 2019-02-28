@@ -63,7 +63,7 @@ spec:
       containers:
       - name: k8skafka
         imagePullPolicy: Always
-        image: gcr.io/google_containers/kubernetes-kafka:1.0-10.2.1
+        image: zdq0394/kubernetes-kafka:1.0-10.2.1
         resources:
           requests:
             memory: "12Gi"
@@ -186,3 +186,4 @@ spec:
       resources:
         requests:
           storage: 10Gi
+      storageClassName: px-hdd-ha3
