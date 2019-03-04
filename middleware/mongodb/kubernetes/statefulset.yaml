@@ -13,7 +13,6 @@ spec:
         role: mongo
         environment: test
     spec:
-      serviceAccountName: mongo
       terminationGracePeriodSeconds: 10
       containers:
         - name: mongo
