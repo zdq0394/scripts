@@ -139,7 +139,7 @@ spec:
           --override reserved.broker.max.id=1000 "
         env:
         - name: KAFKA_HEAP_OPTS
-          value : "-Xmx2G -Xms2G"
+          value : "-Xmx24G -Xms8G"
         - name: KAFKA_OPTS
           value: "-Dlogging.level=INFO"
         volumeMounts:
