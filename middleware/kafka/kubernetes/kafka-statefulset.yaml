@@ -39,7 +39,7 @@ spec:
       containers:
       - name: k8skafka
         imagePullPolicy: Always
-        image: zdq0394/kubernetes-kafka:1.0-10.2.1
+        image: zdq0394/kubernetes-kafka:2.11-0.10.2.1
         resources:
           requests:
             memory: "12Gi"
