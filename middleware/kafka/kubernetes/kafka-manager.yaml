@@ -35,7 +35,7 @@ spec:
     spec:
       restartPolicy: Always
       containers:
-      - image: zdq0394/kafka-manager:1.3.0.4
+      - image: zdq0394/kafka-manager
         name: kafka-manager
         env:
         - name: ZK_HOSTS
