@@ -50,7 +50,7 @@ spec:
         command:
         - sh
         - -c
-        - "exec kafka-server-start.sh /opt/kafka/config/server.properties --override broker.id=${HOSTNAME##*-} \
+        - "JMX_PORT=9997 exec kafka-server-start.sh /opt/kafka/config/server.properties --override broker.id=${HOSTNAME##*-} \
           --override listeners=PLAINTEXT://:9093 \
           --override zookeeper.connect=zk-cs.default.svc.cluster.local:2181 \
           --override log.dirs=/var/lib/kafka \
