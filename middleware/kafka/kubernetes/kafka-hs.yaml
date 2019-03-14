@@ -10,5 +10,6 @@ spec:
   - port: 9093
     name: server
   clusterIP: None
+  publishNotReadyAddresses: true
   selector:
     app: kafka
