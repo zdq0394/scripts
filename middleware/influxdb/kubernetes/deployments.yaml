@@ -55,7 +55,6 @@ spec:
       - image: influxdb:1.7
         imagePullPolicy: IfNotPresent
         name: influxdb
-        command: ["influxdb"]
         resources:
           requests:
             cpu: 100m
