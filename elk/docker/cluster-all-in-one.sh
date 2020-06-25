@@ -1,7 +1,7 @@
 #! /bin/bash
-mkdir /elastic/data/es01
-mkdir /elastic/data/es02
-mkdir /elastic/data/es03
+mkdir -p /elastic/data/es01
+mkdir -p /elastic/data/es02
+mkdir -p /elastic/data/es03
 
 chmod -R 777 /elastic/data
 
